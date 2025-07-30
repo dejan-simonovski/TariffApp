@@ -1,7 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using System;
+using TariffApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+});
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
