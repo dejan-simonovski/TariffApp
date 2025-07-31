@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using TariffApp.Data;
+using TariffApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<FeeCalculationService>();
 
 var app = builder.Build();
 

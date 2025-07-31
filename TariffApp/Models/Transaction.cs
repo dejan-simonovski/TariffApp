@@ -7,13 +7,14 @@ namespace TariffApp.Models
         public Guid TransactionId { get; set; } = Guid.NewGuid();
         public TransactionType Type { get; set; } = TransactionType.DomesticTransfer; // default
         public double Amount { get; set; }
-        public string Currency { get; set; } = "EUR";
+        public Currency Currency { get; set; } = Currency.EUR;
         public bool IsDomestic { get; set; }
-        public double Provision { get; set; }
+        public double? Provision { get; set; }
         public Guid SenderId { get; set; }
         public Client? Sender { get; set; }
         public Guid ReceiverId { get; set; }
         public Client? Receiver { get; set; }
+        public string? Metadata { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
     }
 }

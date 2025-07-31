@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using TariffApp.Data;
 using TariffApp.Models;
+using TariffApp.Models.Enum;
 
 namespace TariffApp.Controllers
 {
@@ -22,7 +23,8 @@ namespace TariffApp.Controllers
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Transactions.ToListAsync());
+            var applicationDbContext = _context.Transactions.Include(t => t.Receiver).Include(t => t.Sender);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Transactions/Details/5
@@ -34,6 +36,8 @@ namespace TariffApp.Controllers
             }
 
             var transaction = await _context.Transactions
+                .Include(t => t.Receiver)
+                .Include(t => t.Sender)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
             if (transaction == null)
             {
@@ -46,6 +50,10 @@ namespace TariffApp.Controllers
         // GET: Transactions/Create
         public IActionResult Create()
         {
+            ViewBag.Currency = new SelectList(Enum.GetValues(typeof(Currency)));
+            ViewBag.TransactionType = new SelectList(Enum.GetValues(typeof(TransactionType)));
+            ViewData["ReceiverId"] = new SelectList(_context.Clients, "ClientId", "Name");
+            ViewData["SenderId"] = new SelectList(_context.Clients, "ClientId", "Name");
             return View();
         }
 
@@ -54,7 +62,7 @@ namespace TariffApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TransactionId,Type,Amount,Currency,IsDomestic,Provision,Timestamp")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("TransactionId,Type,Amount,Currency,IsDomestic,Provision,SenderId,ReceiverId,Timestamp")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +71,8 @@ namespace TariffApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ReceiverId"] = new SelectList(_context.Clients, "ClientId", "ClientId", transaction.ReceiverId);
+            ViewData["SenderId"] = new SelectList(_context.Clients, "ClientId", "ClientId", transaction.SenderId);
             return View(transaction);
         }
 
@@ -79,6 +89,10 @@ namespace TariffApp.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Currency = new SelectList(Enum.GetValues(typeof(Currency)));
+            ViewBag.TransactionType = new SelectList(Enum.GetValues(typeof(TransactionType)));
+            ViewData["ReceiverId"] = new SelectList(_context.Clients, "ClientId", "ClientId", transaction.ReceiverId);
+            ViewData["SenderId"] = new SelectList(_context.Clients, "ClientId", "ClientId", transaction.SenderId);
             return View(transaction);
         }
 
@@ -87,7 +101,7 @@ namespace TariffApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("TransactionId,Type,Amount,Currency,IsDomestic,Provision,Timestamp")] Transaction transaction)
+        public async Task<IActionResult> Edit(Guid id, [Bind("TransactionId,Type,Amount,Currency,IsDomestic,Provision,SenderId,ReceiverId,Timestamp")] Transaction transaction)
         {
             if (id != transaction.TransactionId)
             {
@@ -114,6 +128,8 @@ namespace TariffApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ReceiverId"] = new SelectList(_context.Clients, "ClientId", "ClientId", transaction.ReceiverId);
+            ViewData["SenderId"] = new SelectList(_context.Clients, "ClientId", "ClientId", transaction.SenderId);
             return View(transaction);
         }
 
@@ -126,6 +142,8 @@ namespace TariffApp.Controllers
             }
 
             var transaction = await _context.Transactions
+                .Include(t => t.Receiver)
+                .Include(t => t.Sender)
                 .FirstOrDefaultAsync(m => m.TransactionId == id);
             if (transaction == null)
             {

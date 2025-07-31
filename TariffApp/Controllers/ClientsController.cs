@@ -48,7 +48,6 @@ namespace TariffApp.Controllers
         public IActionResult Create()
         {
             ViewBag.SegmentList = new SelectList(Enum.GetValues(typeof(ClientSegment)));
-
             return View();
         }
 
@@ -57,7 +56,7 @@ namespace TariffApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientId,CreditScore,Segment,IsRisky")] Client client)
+        public async Task<IActionResult> Create([Bind("Name,ClientId,CreditScore,Segment,IsRisky")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -77,13 +76,12 @@ namespace TariffApp.Controllers
                 return NotFound();
             }
 
-            ViewBag.SegmentList = new SelectList(Enum.GetValues(typeof(ClientSegment)));
-
             var client = await _context.Clients.FindAsync(id);
             if (client == null)
             {
                 return NotFound();
             }
+            ViewBag.SegmentList = new SelectList(Enum.GetValues(typeof(ClientSegment)));
             return View(client);
         }
 
@@ -92,7 +90,7 @@ namespace TariffApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ClientId,CreditScore,Segment,IsRisky")] Client client)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,ClientId,CreditScore,Segment,IsRisky")] Client client)
         {
             if (id != client.ClientId)
             {
@@ -145,13 +143,23 @@ namespace TariffApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
+            // Check if client is involved in any transaction
+            bool hasTransactions = await _context.Transactions
+                .AnyAsync(t => t.SenderId == id || t.ReceiverId == id);
+
+            if (hasTransactions)
+            {
+                TempData["DeleteError"] = "Cannot delete client who has transactions.";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
+
             var client = await _context.Clients.FindAsync(id);
             if (client != null)
             {
                 _context.Clients.Remove(client);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

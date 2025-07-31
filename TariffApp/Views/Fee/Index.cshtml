@@ -1,8 +1,74 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model TariffApp.Models.TransactionInputViewModel
+
+@{
+    ViewData["Title"] = "Paste Transactions JSON";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Fee Controller!</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1>Paste Transactions JSON</h1>
+
+<form method="post">
+    <div class="form-group">
+        <textarea id="jsonInput" name="JsonInput" rows="15" cols="80" class="form-control">@Model.JsonInput</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-success mt-3">@Model.Message</div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger mt-3">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<hr />
+
+<p>
+    <a class="btn btn-secondary" data-bs-toggle="collapse" href="#exampleJsonCollapse" role="button" aria-expanded="false" aria-controls="exampleJsonCollapse">
+        Show Example JSON
+    </a>
+</p>
+
+<div class="collapse" id="exampleJsonCollapse">
+    <pre style="background-color:#f8f9fa; padding:15px; border-radius:5px; max-height: 400px; overflow: auto;">
+[
+  {
+    "TransactionId": "d5b8c370-4e4a-4f5a-a1f0-123456789abc",
+    "Type": "DomesticTransfer",
+    "Amount": 1500.75,
+    "Currency": "EUR",
+    "IsDomestic": true,
+    "Provision": 10.5,
+    "SenderId": "a1111111-2222-3333-4444-555555555555",
+    "Sender": {
+      "Name": "Alice Johnson",
+      "ClientId": "a1111111-2222-3333-4444-555555555555",
+      "CreditScore": 720,
+      "Segment": "Premium",
+      "IsRisky": false
+    },
+    "ReceiverId": "b2222222-3333-4444-5555-666666666666",
+    "Receiver": {
+      "Name": "Bob Smith",
+      "ClientId": "b2222222-3333-4444-5555-666666666666",
+      "CreditScore": 680,
+      "Segment": "Standard",
+      "IsRisky": false
+    },
+    "Timestamp": "2025-07-31T08:30:00Z"
+  }
+]
+    </pre>
+    <p>For more information about available currencies, transaction types and etc, please visit the transaction and client pages.</p>
 </div>
+

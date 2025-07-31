@@ -29,6 +29,15 @@
                 @Html.DisplayNameFor(model => model.Provision)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Sender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Receiver)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Metadata)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Timestamp)
             </th>
             <th></th>
@@ -51,6 +60,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Provision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sender.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Receiver.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Metadata)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Timestamp)

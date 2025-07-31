@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TariffApp.Models;
+using TariffApp.Models.Enum;
 
 namespace TariffApp.Data
 {
@@ -25,6 +26,20 @@ namespace TariffApp.Data
                 .WithMany()
                 .HasForeignKey(t => t.ReceiverId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Configuration>().HasData(
+            new Configuration
+            {
+                Id = 1,
+                DefaultCurrency = Currency.EUR,
+                MaxFeeLimit = 120.0,
+                PosFixedFee = 0.20,
+                PosPercentFee = 0.002,
+                LastUpdated = new DateTime(2025, 01, 01, 0, 0, 0, DateTimeKind.Utc)
+            }
+);
+
         }
+        public DbSet<TariffApp.Models.Configuration> Configuration { get; set; } = default!;
     }
 }

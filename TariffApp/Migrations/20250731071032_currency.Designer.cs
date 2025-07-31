@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TariffApp.Data;
 
@@ -11,9 +12,11 @@ using TariffApp.Data;
 namespace TariffApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250731071032_currency")]
+    partial class currency
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,54 +37,12 @@ namespace TariffApp.Migrations
                     b.Property<bool>("IsRisky")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Segment")
                         .HasColumnType("int");
 
                     b.HasKey("ClientId");
 
                     b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("TariffApp.Models.Configuration", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DefaultCurrency")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("MaxFeeLimit")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PosFixedFee")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PosPercentFee")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Configuration");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DefaultCurrency = 0,
-                            LastUpdated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            MaxFeeLimit = 120.0,
-                            PosFixedFee = 0.20000000000000001,
-                            PosPercentFee = 0.002
-                        });
                 });
 
             modelBuilder.Entity("TariffApp.Models.Transaction", b =>
@@ -99,10 +60,7 @@ namespace TariffApp.Migrations
                     b.Property<bool>("IsDomestic")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Metadata")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Provision")
+                    b.Property<double>("Provision")
                         .HasColumnType("float");
 
                     b.Property<Guid>("ReceiverId")
