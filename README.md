@@ -13,40 +13,64 @@ Note: This is a small-scale, time-boxed project built for a 48-hour coding chall
 
 # Docker Deployment Guide
 
-This guide explains how to build and run the TariffApp (.NET MVC) using Docker.
+This guide explains how to deploy and run the TariffApp (.NET MVC) using Docker. You can either pull a pre-built image from Docker Hub (**Approach 1**) or build the image yourself locally (**Approach 2**).
+
+---
 
 ## Prerequisites
 
-Before you start, make sure the following is installed on your system:
+Make sure the following is installed on your system:
 
 ### Docker Desktop
 - Download:  
   [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
-
 - Install and start Docker Desktop.
 - Verify installation:
   ```bash
   docker --version
-  ```
-### Commands
-- Firstly clone the repository or download/unpack it to your desired location.
-- Open command prompt and navigate to the directory of the Dockerfile
-- Run the following in command prompt to build the docker image
-  ```bash
-  docker build -t tariffapp .
-  ```
-- Run the docker image with
-  ```bash
-  docker run -d -p 5000:8080 --name tariff-container tariffapp
-  ```
-- Access the application via localhost:5000
-- To stop the container presss STOP on the container via docker desktop. (blue square icon) or type the following in the command prompt 
-  ```bash
-  docker stop tariff-container
-  ```
-- To remove the container you can either press the red trash can icon on docker desktop or use the following in the command prompt
-  ```bash
-  docker rm tariff-container
-  ```
+
+## Approach 1: Pull from Docker Hub (Recommended)
+
+Skip building the image locally, just pull and run.
+
+### 1. Pull the image
+```
+docker pull dejans12/tariffapp:latest
+```
+
+### 2. Run the container
+```
+docker run -d -p 5000:8080 --name tariff-container dejans12/tariffapp:latest
+```
+
+### 3. Access the application
+Open your browser and go to:  
+[http://localhost:5000](http://localhost:5000)
+
+---
+
+##  Approach 2: Build Locally from Source
+
+Building the image yourself.
+
+### 1. Clone or download the repository
+Place the project in your desired location.
+
+### 2. Navigate to the project directory
+Open your terminal or command prompt and go to the folder containing the Dockerfile.
+
+### 3. Build the Docker image
+```
+docker build -t tariffapp .
+```
+
+### 4. Run the container
+```
+docker run -d -p 5000:8080 --name tariff-container tariffapp
+```
+
+### 5. Access the application
+Go to:  
+[http://localhost:5000](http://localhost:5000)
 
   
