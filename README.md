@@ -9,6 +9,8 @@ Additional fee charges were added as well as CRUD operations.
 
 If there were no time limitations, I would most likely add multiple select for delete, login, deploying an actual database, more tests and etc.
 
+Note: This is a small-scale, time-boxed project built for a 48-hour coding challenge. Due to the short development cycle and limited scope, all work was committed directly to the main branch for simplicity and speed. In a production setting or for larger projects, feature branching and pull requests would be used to ensure code quality and collaboration. **Never** commit directly to main.
+
 # Docker Deployment Guide
 
 This guide explains how to build and run the TariffApp (.NET MVC) using Docker.
