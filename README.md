@@ -29,7 +29,8 @@ Before you start, make sure the following is installed on your system:
   docker --version
   ```
 ### Commands
-- Open docker and navigate to the directory of the Dockerfile
+- Firstly clone the repository or download/unpack it to your desired location.
+- Open command prompt and navigate to the directory of the Dockerfile
 - Run the following in command prompt to build the docker image
   ```bash
   docker build -t tariffapp .
