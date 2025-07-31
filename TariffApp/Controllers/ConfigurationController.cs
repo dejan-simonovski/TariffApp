@@ -48,7 +48,7 @@ namespace TariffApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DefaultCurrency,MaxFeeLimit,PosFixedFee,PosPercentFee,LastUpdated")] Configuration configuration)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DefaultCurrency,MaxFeeLimit,PosFixedFee,PosPercentFee,CreditScoreDiscount,LastUpdated")] Configuration configuration)
         {
             if (id != configuration.Id)
             {

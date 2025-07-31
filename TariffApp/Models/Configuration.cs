@@ -9,6 +9,7 @@ namespace TariffApp.Models
         public double MaxFeeLimit { get; set; } = 120.0;
         public double PosFixedFee { get; set; } = 0.20;
         public double PosPercentFee { get; set; } = 0.002;
+        public int CreditScoreDiscount { get; set; } = 400;
         public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
     }
 

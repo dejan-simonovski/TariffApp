@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TariffApp.Data;
 
@@ -11,9 +12,11 @@ using TariffApp.Data;
 namespace TariffApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250731095135_creditScoreConfig")]
+    partial class creditScoreConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,9 +56,6 @@ namespace TariffApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CreditScoreDiscount")
-                        .HasColumnType("int");
-
                     b.Property<int>("DefaultCurrency")
                         .HasColumnType("int");
 
@@ -71,6 +71,9 @@ namespace TariffApp.Migrations
                     b.Property<double>("PosPercentFee")
                         .HasColumnType("float");
 
+                    b.Property<int>("creditScoreDiscount")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Configuration");
@@ -79,12 +82,12 @@ namespace TariffApp.Migrations
                         new
                         {
                             Id = 1,
-                            CreditScoreDiscount = 400,
                             DefaultCurrency = 0,
                             LastUpdated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             MaxFeeLimit = 120.0,
                             PosFixedFee = 0.20000000000000001,
-                            PosPercentFee = 0.002
+                            PosPercentFee = 0.002,
+                            creditScoreDiscount = 400
                         });
                 });
 

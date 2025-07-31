@@ -35,6 +35,7 @@ namespace TariffApp.Data
                 MaxFeeLimit = 120.0,
                 PosFixedFee = 0.20,
                 PosPercentFee = 0.002,
+                CreditScoreDiscount = 400,
                 LastUpdated = new DateTime(2025, 01, 01, 0, 0, 0, DateTimeKind.Utc)
             }
 );

@@ -8,16 +8,19 @@ using System.Threading.Tasks;
 using TariffApp.Data;
 using TariffApp.Models;
 using TariffApp.Models.Enum;
+using TariffApp.Services.Interfaces;
 
 namespace TariffApp.Controllers
 {
     public class TransactionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IFeeCalculationService _feeCalculationService;
 
-        public TransactionsController(ApplicationDbContext context)
+        public TransactionsController(ApplicationDbContext context, IFeeCalculationService feeCalculationService)
         {
             _context = context;
+            _feeCalculationService = feeCalculationService;
         }
 
         // GET: Transactions
@@ -67,6 +70,7 @@ namespace TariffApp.Controllers
             if (ModelState.IsValid)
             {
                 transaction.TransactionId = Guid.NewGuid();
+                _feeCalculationService.ApplyFee(transaction);
                 _context.Add(transaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -112,6 +116,7 @@ namespace TariffApp.Controllers
             {
                 try
                 {
+                    _feeCalculationService.ApplyFee(transaction);
                     _context.Update(transaction);
                     await _context.SaveChangesAsync();
                 }

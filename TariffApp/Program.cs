@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using TariffApp.Data;
+using TariffApp.Repositories;
+using TariffApp.Repositories.Interfaces;
 using TariffApp.Services;
+using TariffApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddScoped<FeeCalculationService>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
+builder.Services.AddScoped<IFeeCalculationService, FeeCalculationService>();
+
 
 var app = builder.Build();
 
