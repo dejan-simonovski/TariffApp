@@ -1,0 +1,127 @@
+[
+  {
+    "TransactionId": "d5b8c370-4e4a-4f5a-a1f0-123456789abc",
+    "Type": "DomesticTransfer",
+    "Amount": 1500.75,
+    "Currency": "EUR",
+    "IsDomestic": true,
+    "Provision": 10.5,
+    "SenderId": "a1111111-2222-3333-4444-555555555555",
+    "Sender": {
+      "Name": "Alice Johnson",
+      "ClientId": "a1111111-2222-3333-4444-555555555555",
+      "CreditScore": 720,
+      "Segment": "Premium",
+      "IsRisky": false
+    },
+    "ReceiverId": "b2222222-3333-4444-5555-666666666666",
+    "Receiver": {
+      "Name": "Bob Smith",
+      "ClientId": "b2222222-3333-4444-5555-666666666666",
+      "CreditScore": 680,
+      "Segment": "Standard",
+      "IsRisky": false
+    },
+    "Timestamp": "2025-07-31T08:30:00Z"
+  },
+  {
+    "TransactionId": "e6b8c370-4e4a-4f5a-a1f0-abcdefabcdef",
+    "Type": "POS",
+    "Amount": 80.00,
+    "Currency": "EUR",
+    "IsDomestic": true,
+    "Provision": 1.5,
+    "SenderId": "c3333333-4444-5555-6666-777777777777",
+    "Sender": {
+      "Name": "Charlie Risk",
+      "ClientId": "c3333333-4444-5555-6666-777777777777",
+      "CreditScore": 450,
+      "Segment": "Standard",
+      "IsRisky": true
+    },
+    "ReceiverId": "d4444444-5555-6666-7777-888888888888",
+    "Receiver": {
+      "Name": "Diana Safe",
+      "ClientId": "d4444444-5555-6666-7777-888888888888",
+      "CreditScore": 670,
+      "Segment": "Standard",
+      "IsRisky": false
+    },
+    "Timestamp": "2025-07-31T09:00:00Z"
+  },
+  {
+    "TransactionId": "fa123456-7890-4abc-def1-23456789abcd",
+    "Type": "POS",
+    "Amount": 200.00,
+    "Currency": "USD",
+    "IsDomestic": false,
+    "Provision": 7.5,
+    "SenderId": "e5555555-6666-7777-8888-999999999999",
+    "Sender": {
+      "Name": "Eve Credit",
+      "ClientId": "e5555555-6666-7777-8888-999999999999",
+      "CreditScore": 710,
+      "Segment": "Premium",
+      "IsRisky": false
+    },
+    "ReceiverId": "f6666666-7777-8888-9999-aaaaaaaaaaaa",
+    "Receiver": {
+      "Name": "Frank Bank",
+      "ClientId": "f6666666-7777-8888-9999-aaaaaaaaaaaa",
+      "CreditScore": 580,
+      "Segment": "Standard",
+      "IsRisky": false
+    },
+    "Timestamp": "2025-07-31T09:15:00Z"
+  },
+  {
+    "TransactionId": "bb234567-89ab-4bcd-9234-bbcdefabcdef",
+    "Type": "ECommerce",
+    "Amount": 10000,
+    "Currency": "EUR",
+    "IsDomestic": false,
+    "Provision": 50.0,
+    "SenderId": "77777777-8888-9999-aaaa-bbbbbbbbbbbb",
+    "Sender": {
+      "Name": "George Cap",
+      "ClientId": "77777777-8888-9999-aaaa-bbbbbbbbbbbb",
+      "CreditScore": 400,
+      "Segment": "Standard",
+      "IsRisky": false
+    },
+    "ReceiverId": "88888888-9999-aaaa-bbbb-cccccccccccc",
+    "Receiver": {
+      "Name": "Helen Limit",
+      "ClientId": "88888888-9999-aaaa-bbbb-cccccccccccc",
+      "CreditScore": 480,
+      "Segment": "Standard",
+      "IsRisky": false
+    },
+    "Timestamp": "2025-07-31T10:00:00Z"
+  },
+  {
+    "TransactionId": "cc345678-9abc-4cde-a345-cdefabcdefab",
+    "Type": "ECommerce",
+    "Amount": 300.00,
+    "Currency": "MKD",
+    "IsDomestic": false,
+    "Provision": 15.3,
+    "SenderId": "99999999-aaaa-bbbb-cccc-dddddddddddd",
+    "Sender": {
+      "Name": "Ivy Risky",
+      "ClientId": "99999999-aaaa-bbbb-cccc-dddddddddddd",
+      "CreditScore": 500,
+      "Segment": "Standard",
+      "IsRisky": true
+    },
+    "ReceiverId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    "Receiver": {
+      "Name": "Jack Trust",
+      "ClientId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "CreditScore": 650,
+      "Segment": "Standard",
+      "IsRisky": false
+    },
+    "Timestamp": "2025-07-31T10:30:00Z"
+  }
+]
