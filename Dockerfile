@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out .
 
+ENV ASPNETCORE_ENVIRONMENT=Production
+
 EXPOSE 5000
 EXPOSE 5001
 

@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TariffApp.Data;
@@ -12,36 +11,32 @@ using TariffApp.Data;
 namespace TariffApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250731095135_creditScoreConfig")]
-    partial class creditScoreConfig
+    [Migration("20250731185957_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
 
             modelBuilder.Entity("TariffApp.Models.Client", b =>
                 {
                     b.Property<Guid>("ClientId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("CreditScore")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsRisky")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Segment")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ClientId");
 
@@ -52,27 +47,25 @@ namespace TariffApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("CreditScoreDiscount")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("DefaultCurrency")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("MaxFeeLimit")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<double>("PosFixedFee")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<double>("PosPercentFee")
-                        .HasColumnType("float");
-
-                    b.Property<int>("creditScoreDiscount")
-                        .HasColumnType("int");
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
@@ -82,12 +75,12 @@ namespace TariffApp.Migrations
                         new
                         {
                             Id = 1,
+                            CreditScoreDiscount = 400,
                             DefaultCurrency = 0,
                             LastUpdated = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             MaxFeeLimit = 120.0,
                             PosFixedFee = 0.20000000000000001,
-                            PosPercentFee = 0.002,
-                            creditScoreDiscount = 400
+                            PosPercentFee = 0.002
                         });
                 });
 
@@ -95,34 +88,34 @@ namespace TariffApp.Migrations
                 {
                     b.Property<Guid>("TransactionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("Amount")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<int>("Currency")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDomestic")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Metadata")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<double?>("Provision")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<Guid>("ReceiverId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("SenderId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Type")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("TransactionId");
 
